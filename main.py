@@ -30,7 +30,6 @@ def main():
     player = Player(x, y)
     asteroidfield = AsteroidField()
 
-
     while on == True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -43,6 +42,12 @@ def main():
                   sys.exit()
             else:
                  pass
+            for bullets in shots:
+                if asteroids.collision(bullets) == True:
+                      asteroids.kill()
+                      bullets.kill()
+                else:
+                    pass
         pygame.Surface.fill(screen, (0,0,0))
         for sprite in drawable:
              sprite.draw(screen)
