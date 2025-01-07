@@ -44,7 +44,7 @@ def main():
                  pass
             for bullets in shots:
                 if asteroids.collision(bullets) == True:
-                      asteroids.kill()
+                      asteroids.split()
                       bullets.kill()
                 else:
                     pass
