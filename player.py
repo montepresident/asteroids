@@ -20,6 +20,8 @@ class Player(CircleShape):
             self.rotate(dt)
         if keys[pygame.K_w or pygame.K_s]:
             self.move(dt)
+        if keys[pygame.K_SPACE]:
+            self.shoot()
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -34,3 +36,21 @@ class Player(CircleShape):
     def move(self, dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * PLAYER_SPEED * dt
+    def shoot(self):
+        shot = Shot(self.position.x, self.position.y)
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        shot.velocity = forward * PLAYER_SHOOT_SPEED
+
+
+
+class Shot(CircleShape):
+    def __init__(self, x, y):
+        super().__init__(x, y, SHOT_RADIUS)
+
+    def draw(self, screen):
+        # sub-classes must override
+         pygame.draw.circle(screen, "white", (self.position.x, self.position.y), self.radius, width=2)
+
+    def update(self, dt):
+        # sub-classes must override
+        self.position += (self.velocity * dt)
